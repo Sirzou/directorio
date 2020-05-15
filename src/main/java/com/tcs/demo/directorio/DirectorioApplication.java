@@ -8,12 +8,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
+@Configuration
+@EnableSwagger2
 public class DirectorioApplication {
 
 	public static void main(String[] args) {
@@ -51,7 +55,17 @@ public class DirectorioApplication {
 			address.setCity("Naucalpan");
 			address.setState("Jalisco");
 			address.setCountry("MX");
-
+			address.setOwner(newPerson);
+			personLocationRepository.save(address);
+			address = new PersonLocation();
+			address.setStreet("sur 17");
+			address.setExternalNumber("mza 10");
+			address.setInternalNumber("lt 16");
+			address.setPostalCode("56613");
+			address.setLocality("Coñlonia san Miguel Xico II");
+			address.setCity("Valle de Chalco");
+			address.setState("Estado de México");
+			address.setCountry("MX");
 			personLocationRepository.save(address);
 
 			System.out.println("Addresses: ");
