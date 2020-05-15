@@ -1,0 +1,9 @@
+/.project
+/.classpath
+/.factorypath
+/directorio.iml
+/.idea/
+/.settings/
+/jdbc:h2:/
+/http:/
+/target/

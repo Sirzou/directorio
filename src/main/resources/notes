@@ -1,0 +1,24 @@
+spring.datasource.url=jdbc:h2:http://localhost:8082/directorio-db
+spring.datasource.username=saul
+spring.datasource.password=passcode
+spring.datasource.driverClassName=org.h2.Driver
+
+
+CREATE TABLE ADDRESS (
+   id VARCHAR(20) NOT NULL,
+   street VARCHAR(20) NOT NULL,
+   externalNumber VARCHAR(50) NOT NULL,
+   internalNumber VARCHAR(50) NOT NULL,
+   postalCode VARCHAR(20) NOT NULL,
+   locality VARCHAR(50) NOT NULL,
+   city VARCHAR(50) NOT NULL, ADDRESS
+   state VARCHAR(20) NOT NULL,
+   country VARCHAR(20) NOT NULL,
+);
+
+
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
