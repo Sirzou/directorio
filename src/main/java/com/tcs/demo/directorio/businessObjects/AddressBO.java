@@ -1,11 +1,13 @@
 package com.tcs.demo.directorio.businessObjects;
 
-import com.tcs.demo.directorio.dataObjects.AddressDO;
+import com.tcs.demo.directorio.dataObjects.PersonLocation;
 
 import java.util.List;
 
 public interface AddressBO {
-    public List<AddressDO> getAllAddresses();
+    public List<PersonLocation> getAllAddresses();
 
-    public AddressDO getAddressById(String addressId);
+    public PersonLocation getAddressById(Long addressId);
+
+    public PersonLocation createAddress(PersonLocation address);
 }
