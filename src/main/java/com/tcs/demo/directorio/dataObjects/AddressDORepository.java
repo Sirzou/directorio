@@ -1,4 +1,4 @@
-package com.tcs.demo.directorio.bo;
+package com.tcs.demo.directorio.dataObjects;
 
 import org.springframework.data.repository.CrudRepository;
 
