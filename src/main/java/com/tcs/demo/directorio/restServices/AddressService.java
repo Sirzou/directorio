@@ -3,9 +3,7 @@ package com.tcs.demo.directorio.restServices;
 import com.tcs.demo.directorio.businessObjects.AddressBO;
 import com.tcs.demo.directorio.dataObjects.PersonLocation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,11 @@ public class AddressService {
 
     @GetMapping("/address/{addressId}")
     public PersonLocation getAddress(@PathVariable String addressId) {
-        return addressBO.getAddressById(Long.parseLong(addressId));
+        return addressBO.getAddressById(addressId);
+    }
+
+    @PostMapping("/address")
+    public PersonLocation createAddress(@RequestBody PersonLocation address){
+        return addressBO.createAddress(address);
     }
 }

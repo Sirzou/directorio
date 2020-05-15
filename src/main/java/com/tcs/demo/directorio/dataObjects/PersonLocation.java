@@ -2,10 +2,7 @@ package com.tcs.demo.directorio.dataObjects;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +19,10 @@ public class PersonLocation {
     private String city;
     private String state;
     private String country;
+    @ManyToOne
+    @JoinColumn(name = "OWNER")
+    private Person owner;
+
 
     @Override
     public boolean equals(Object o) {

@@ -7,7 +7,9 @@ import java.util.List;
 public interface AddressBO {
     public List<PersonLocation> getAllAddresses();
 
-    public PersonLocation getAddressById(Long addressId);
+    public PersonLocation getAddressById(String addressId);
 
     public PersonLocation createAddress(PersonLocation address);
+
+    public PersonLocation updateAddress(PersonLocation address);
 }
