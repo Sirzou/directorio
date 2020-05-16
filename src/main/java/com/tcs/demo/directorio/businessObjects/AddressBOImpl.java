@@ -1,7 +1,7 @@
 package com.tcs.demo.directorio.businessObjects;
 
-import com.tcs.demo.directorio.dataObjects.PersonLocation;
-import com.tcs.demo.directorio.dataObjects.PersonLocationRepository;
+import com.tcs.demo.directorio.dataObjects.Domicilio;
+import com.tcs.demo.directorio.dataObjects.DomicilioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,32 +10,36 @@ import java.util.List;
 @Service
 public class AddressBOImpl implements AddressBO {
     @Autowired
-    PersonLocationRepository personLocationRepository;
+    DomicilioRepository domicilioRepository;
 
-    public List<PersonLocation> getAllAddresses() {
-        return (List<PersonLocation>) personLocationRepository.findAll();
+    public List<Domicilio> getAllAddresses() {
+        return (List<Domicilio>) domicilioRepository.findAll();
     }
 
-    public PersonLocation getAddressById(String addressId) {
-        return personLocationRepository.findById(Long.parseLong(addressId)).get();
+    public Domicilio getAddressById(String addressId) {
+        return domicilioRepository.findById(Long.parseLong(addressId)).get();
     }
 
     @Override
-    public PersonLocation createAddress(PersonLocation address) {
-        List<PersonLocation> allAddresses = getAllAddresses();
+    public Domicilio createAddress(Domicilio address) {
+        List<Domicilio> allAddresses = getAllAddresses();
         boolean alreadyExists = allAddresses.stream().anyMatch(add -> add.hashCode() == address.hashCode());
-        if (alreadyExists) {
-            return null;
+        if (!alreadyExists) {
+            try {
+                return domicilioRepository.save(address);
+            }catch(Exception e){
+                System.out.println(e);
+            }
         }
-        return personLocationRepository.save(address);
+        return null;
     }
 
     @Override
-    public PersonLocation updateAddress(PersonLocation address) {
-        List<PersonLocation> allAddresses = getAllAddresses();
+    public Domicilio updateAddress(Domicilio address) {
+        List<Domicilio> allAddresses = getAllAddresses();
         boolean alreadyExists = allAddresses.stream().anyMatch(add -> add.hashCode() == address.hashCode());
         if (alreadyExists) {
-            return personLocationRepository.save(address);
+            return domicilioRepository.save(address);
         }
         return null;
     }
