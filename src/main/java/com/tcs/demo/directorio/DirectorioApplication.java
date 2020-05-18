@@ -2,8 +2,8 @@ package com.tcs.demo.directorio;
 
 import com.tcs.demo.directorio.dataObjects.Person;
 import com.tcs.demo.directorio.dataObjects.PersonDORepository;
-import com.tcs.demo.directorio.dataObjects.Domicilio;
-import com.tcs.demo.directorio.dataObjects.DomicilioRepository;
+import com.tcs.demo.directorio.dataObjects.Address;
+import com.tcs.demo.directorio.dataObjects.AddressRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +25,7 @@ public class DirectorioApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(PersonDORepository personDORepository, DomicilioRepository personLocationRepository) {
+	public CommandLineRunner demo(PersonDORepository personDORepository, AddressRepository personLocationRepository) {
 		return args -> {
 			Person newPerson = new Person();
 			newPerson.setFirstName("Saul");
@@ -46,7 +46,7 @@ public class DirectorioApplication {
 			System.out.println("Persons: ");
 			personDORepository.findAll().forEach(person -> System.out.println(person));
 
-			Domicilio address = new Domicilio();
+			Address address = new Address();
 			address.setStreet("Sezame");
 			address.setExternalNumber("500");
 			address.setInternalNumber("401");
@@ -57,7 +57,7 @@ public class DirectorioApplication {
 			address.setCountry("MX");
 			address.setOwner(newPerson);
 			personLocationRepository.save(address);
-			address = new Domicilio();
+			address = new Address();
 			address.setStreet("sur 17");
 			address.setExternalNumber("mza 10");
 			address.setInternalNumber("lt 16");

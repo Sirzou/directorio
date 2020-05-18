@@ -3,7 +3,7 @@ package com.tcs.demo.directorio.restServices;
 import com.tcs.demo.directorio.businessObjects.AddressBO;
 import com.tcs.demo.directorio.businessObjects.PersonBO;
 import com.tcs.demo.directorio.dataObjects.Person;
-import com.tcs.demo.directorio.dataObjects.Domicilio;
+import com.tcs.demo.directorio.dataObjects.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,15 +51,10 @@ public class PersonService {
         return new ResponseEntity<>(null, HttpStatus.CONFLICT);
     }
 
-    @PostMapping("/person/{personId}/address/{addressId}")
-    public ResponseEntity<Domicilio> fetchAddressToPerson(@PathVariable String personId, @PathVariable String addressId) {
-        Person owner = personBO.getPerson(personId);
-        Domicilio address = addressBO.getAddressById(addressId);
-        if (owner != null && address != null) {
-            address.setOwner(owner);
-            Domicilio domicilio = addressBO.updateAddress(address);
-            return new ResponseEntity<>(domicilio, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    @PostMapping("/person/fetch-address")
+    public ResponseEntity<Address> fetchAddressToPerson(
+            @RequestHeader(value = "personId", required = true) String personId,
+            @RequestHeader(value = "addressId", required = true) String addressId) {
+        return new ResponseEntity<>(personBO.fetchAddressToPerson(personId, addressId), HttpStatus.BAD_REQUEST);
     }
 }

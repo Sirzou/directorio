@@ -2,6 +2,6 @@ package com.tcs.demo.directorio.dataObjects;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface DomicilioRepository extends CrudRepository<Domicilio, Long> {
+public interface AddressRepository extends CrudRepository<Address, Long> {
 
 }

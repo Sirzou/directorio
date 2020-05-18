@@ -1,7 +1,7 @@
 package com.tcs.demo.directorio.businessObjects;
 
-import com.tcs.demo.directorio.dataObjects.Domicilio;
-import com.tcs.demo.directorio.dataObjects.DomicilioRepository;
+import com.tcs.demo.directorio.dataObjects.Address;
+import com.tcs.demo.directorio.dataObjects.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,23 +10,23 @@ import java.util.List;
 @Service
 public class AddressBOImpl implements AddressBO {
     @Autowired
-    DomicilioRepository domicilioRepository;
+    AddressRepository addressRepository;
 
-    public List<Domicilio> getAllAddresses() {
-        return (List<Domicilio>) domicilioRepository.findAll();
+    public List<Address> getAllAddresses() {
+        return (List<Address>) addressRepository.findAll();
     }
 
-    public Domicilio getAddressById(String addressId) {
-        return domicilioRepository.findById(Long.parseLong(addressId)).get();
+    public Address getAddressById(String addressId) {
+        return addressRepository.findById(Long.parseLong(addressId)).get();
     }
 
     @Override
-    public Domicilio createAddress(Domicilio address) {
-        List<Domicilio> allAddresses = getAllAddresses();
+    public Address createAddress(Address address) {
+        List<Address> allAddresses = getAllAddresses();
         boolean alreadyExists = allAddresses.stream().anyMatch(add -> add.hashCode() == address.hashCode());
         if (!alreadyExists) {
             try {
-                return domicilioRepository.save(address);
+                return addressRepository.save(address);
             }catch(Exception e){
                 System.out.println(e);
             }
@@ -35,11 +35,11 @@ public class AddressBOImpl implements AddressBO {
     }
 
     @Override
-    public Domicilio updateAddress(Domicilio address) {
-        List<Domicilio> allAddresses = getAllAddresses();
+    public Address updateAddress(Address address) {
+        List<Address> allAddresses = getAllAddresses();
         boolean alreadyExists = allAddresses.stream().anyMatch(add -> add.hashCode() == address.hashCode());
         if (alreadyExists) {
-            return domicilioRepository.save(address);
+            return addressRepository.save(address);
         }
         return null;
     }

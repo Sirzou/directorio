@@ -1,7 +1,7 @@
 package com.tcs.demo.directorio.restServices;
 
 import com.tcs.demo.directorio.businessObjects.AddressBO;
-import com.tcs.demo.directorio.dataObjects.Domicilio;
+import com.tcs.demo.directorio.dataObjects.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class AddressService {
     AddressBO addressBO;
 
     @GetMapping("/address")
-    public ResponseEntity<List<Domicilio>> getAllAddresses() {
-        List<Domicilio> addressList = addressBO.getAllAddresses();
+    public ResponseEntity<List<Address>> getAllAddresses() {
+        List<Address> addressList = addressBO.getAllAddresses();
         if (addressList != null && !addressList.isEmpty()) {
             return new ResponseEntity<>(addressList, HttpStatus.OK);
         }
@@ -26,11 +26,11 @@ public class AddressService {
     }
 
     @GetMapping("/address/{addressId}")
-    public ResponseEntity<Domicilio> getAddress(@PathVariable String addressId) {
+    public ResponseEntity<Address> getAddress(@PathVariable String addressId) {
         try {
-            Domicilio address = addressBO.getAddressById(addressId);
+            Address address = addressBO.getAddressById(addressId);
             if (address != null) {
-                return new ResponseEntity<Domicilio>(address, HttpStatus.OK);
+                return new ResponseEntity<Address>(address, HttpStatus.OK);
             }
         } catch (NoSuchElementException nse) {
             System.out.println(nse.getMessage());
@@ -41,9 +41,9 @@ public class AddressService {
     }
 
     @PostMapping("/address")
-    public ResponseEntity<Domicilio> createAddress(@RequestBody Domicilio address) {
+    public ResponseEntity<Address> createAddress(@RequestBody Address address) {
         try {
-            Domicilio savedAddress = addressBO.createAddress(address);
+            Address savedAddress = addressBO.createAddress(address);
             if (savedAddress != null) {
                 return new ResponseEntity<>(savedAddress, HttpStatus.OK);
             }

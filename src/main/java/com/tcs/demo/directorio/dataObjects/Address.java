@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Data
-public class Domicilio {
+public class Address {
     @Id
     @GeneratedValue
     private Long id;
@@ -28,7 +28,7 @@ public class Domicilio {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Domicilio that = (Domicilio) o;
+        Address that = (Address) o;
         return street.equals(that.street) &&
                 externalNumber.equals(that.externalNumber) &&
                 Objects.equals(internalNumber, that.internalNumber) &&
