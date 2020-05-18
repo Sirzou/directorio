@@ -1,7 +1,7 @@
 package com.tcs.demo.directorio.businessObjects;
 
-import com.tcs.demo.directorio.dataObjects.PersonLocation;
-import com.tcs.demo.directorio.dataObjects.PersonLocationRepository;
+import com.tcs.demo.directorio.dataObjects.Address;
+import com.tcs.demo.directorio.dataObjects.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,32 +10,36 @@ import java.util.List;
 @Service
 public class AddressBOImpl implements AddressBO {
     @Autowired
-    PersonLocationRepository personLocationRepository;
+    AddressRepository addressRepository;
 
-    public List<PersonLocation> getAllAddresses() {
-        return (List<PersonLocation>) personLocationRepository.findAll();
+    public List<Address> getAllAddresses() {
+        return (List<Address>) addressRepository.findAll();
     }
 
-    public PersonLocation getAddressById(String addressId) {
-        return personLocationRepository.findById(Long.parseLong(addressId)).get();
+    public Address getAddressById(String addressId) {
+        return addressRepository.findById(Long.parseLong(addressId)).get();
     }
 
     @Override
-    public PersonLocation createAddress(PersonLocation address) {
-        List<PersonLocation> allAddresses = getAllAddresses();
+    public Address createAddress(Address address) {
+        List<Address> allAddresses = getAllAddresses();
         boolean alreadyExists = allAddresses.stream().anyMatch(add -> add.hashCode() == address.hashCode());
-        if (alreadyExists) {
-            return null;
+        if (!alreadyExists) {
+            try {
+                return addressRepository.save(address);
+            }catch(Exception e){
+                System.out.println(e);
+            }
         }
-        return personLocationRepository.save(address);
+        return null;
     }
 
     @Override
-    public PersonLocation updateAddress(PersonLocation address) {
-        List<PersonLocation> allAddresses = getAllAddresses();
+    public Address updateAddress(Address address) {
+        List<Address> allAddresses = getAllAddresses();
         boolean alreadyExists = allAddresses.stream().anyMatch(add -> add.hashCode() == address.hashCode());
         if (alreadyExists) {
-            return personLocationRepository.save(address);
+            return addressRepository.save(address);
         }
         return null;
     }
