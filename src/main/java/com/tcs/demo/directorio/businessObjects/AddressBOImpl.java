@@ -27,7 +27,7 @@ public class AddressBOImpl implements AddressBO {
         if (!alreadyExists) {
             try {
                 return addressRepository.save(address);
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }

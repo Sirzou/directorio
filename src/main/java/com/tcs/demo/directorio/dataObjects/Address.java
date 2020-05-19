@@ -19,10 +19,6 @@ public class Address {
     private String city;
     private String state;
     private String country;
-    @ManyToOne
-    @JoinColumn(name = "OWNER")
-    private Person owner;
-
 
     @Override
     public boolean equals(Object o) {
