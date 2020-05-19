@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -18,4 +19,18 @@ public class Location {
     @OneToOne
     private Address address;
     private boolean primaryAddress;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Location)) return false;
+        Location location = (Location) o;
+        return getOwner().equals(location.getOwner()) &&
+                getAddress().equals(location.getAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOwner(), getAddress());
+    }
 }

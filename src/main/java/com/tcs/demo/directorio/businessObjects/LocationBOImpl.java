@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class LocationBOImpl implements LocationBO{
+public class LocationBOImpl implements LocationBO {
 
     @Autowired
     LocationDORepository locationDORepository;
@@ -26,7 +26,6 @@ public class LocationBOImpl implements LocationBO{
         return (List<Location>) locationDORepository.findAll();
     }
 
-    @Override
     public Location getLocation(Long locationId) {
         return locationDORepository.findById(locationId).get();
     }
@@ -41,7 +40,9 @@ public class LocationBOImpl implements LocationBO{
                 Location personXLocation = new Location();
                 personXLocation.setOwner(owner);
                 personXLocation.setAddress(address);
-                return locationDORepository.save(personXLocation);
+                if (! getAllLocations().stream().anyMatch(location -> location.equals(personXLocation))){
+                    return locationDORepository.save(personXLocation);
+                }
             }
         } catch (NoSuchElementException nsee) {
             if (owner == null) {
@@ -54,6 +55,5 @@ public class LocationBOImpl implements LocationBO{
             System.out.println(nsee.getMessage());
         }
         return null;
-
     }
 }
