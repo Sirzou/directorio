@@ -3,7 +3,6 @@ package com.tcs.demo.directorio.restServices;
 import com.tcs.demo.directorio.businessObjects.AddressBO;
 import com.tcs.demo.directorio.businessObjects.PersonBO;
 import com.tcs.demo.directorio.dataObjects.Person;
-import com.tcs.demo.directorio.dataObjects.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,10 +50,5 @@ public class PersonService {
         return new ResponseEntity<>(null, HttpStatus.CONFLICT);
     }
 
-    @PostMapping("/person/fetch-address")
-    public ResponseEntity<Address> fetchAddressToPerson(
-            @RequestHeader(value = "personId", required = true) String personId,
-            @RequestHeader(value = "addressId", required = true) String addressId) {
-        return new ResponseEntity<>(personBO.fetchAddressToPerson(personId, addressId), HttpStatus.BAD_REQUEST);
-    }
+
 }

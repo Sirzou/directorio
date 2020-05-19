@@ -1,9 +1,6 @@
 package com.tcs.demo.directorio;
 
-import com.tcs.demo.directorio.dataObjects.Person;
-import com.tcs.demo.directorio.dataObjects.PersonDORepository;
-import com.tcs.demo.directorio.dataObjects.Address;
-import com.tcs.demo.directorio.dataObjects.AddressRepository;
+import com.tcs.demo.directorio.dataObjects.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +22,7 @@ public class DirectorioApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(PersonDORepository personDORepository, AddressRepository personLocationRepository) {
+	public CommandLineRunner demo(PersonDORepository personDORepository, AddressRepository personLocationRepository, LocationDORepository locationDORepository) {
 		return args -> {
 			Person newPerson = new Person();
 			newPerson.setFirstName("Saul");
@@ -55,7 +52,6 @@ public class DirectorioApplication {
 			address.setCity("Naucalpan");
 			address.setState("Jalisco");
 			address.setCountry("MX");
-			address.setOwner(newPerson);
 			personLocationRepository.save(address);
 			address = new Address();
 			address.setStreet("sur 17");
@@ -67,6 +63,11 @@ public class DirectorioApplication {
 			address.setState("Estado de México");
 			address.setCountry("MX");
 			personLocationRepository.save(address);
+
+			Location personXLocation = new Location();
+			personXLocation.setOwner(newPerson);
+			personXLocation.setAddress(address);
+			locationDORepository.save(personXLocation);
 
 			System.out.println("Addresses: ");
 			personLocationRepository.findAll().forEach(addressIt -> System.out.println(addressIt));
